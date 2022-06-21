@@ -1,0 +1,8 @@
+/kitchenapp/api/migrations/
+/kitchenapp/frontend/migrations/
+/kitchenapp/frontend/node_modules/
+/kitchenapp/frontend/static/frontend/
+/ubicoustics/
+/kitchenapp/frontend/__pycache__/
+/kitchenapp/api/__pycache__/
+/kitchenapp/kitchenapp/__pycache__/
