@@ -30,15 +30,15 @@ import yamnet as yamnet_model
 def main():
   params = yamnet_params.Params()
   yamnet = yamnet_model.yamnet_frames_model(params)
-  yamnet.load_weights('model/yamnet.h5')
-  yamnet_classes = yamnet_model.class_names('model/yamnet_class_map.csv')
+  yamnet.load_weights('yamnet/model/yamnet.h5')
+  yamnet_classes = yamnet_model.class_names('yamnet/model/yamnet_class_map.csv')
   file_name = "output.wav"
 
   while(1):
     record.record(file_name)
     # time.sleep(5.5) -> maybe not necessary?
     
-    print('predicting')
+    print('Predicting...')
     # Decode the WAV file.
     wav_data, sr = sf.read(file_name, dtype=np.int16)
     assert wav_data.dtype == np.int16, 'Bad sample type: %r' % wav_data.dtype
@@ -58,9 +58,13 @@ def main():
     prediction = np.mean(scores, axis=0)
     # Report the highest-scoring classes and their scores.
     top5_i = np.argsort(prediction)[::-1][:5]
+
+    
+    print("======================================")
     print(file_name, ':\n' +
           '\n'.join('  {:12s}: {:.3f}'.format(yamnet_classes[i], prediction[i])
                     for i in top5_i))
+    print("======================================")
 
 if __name__ == '__main__':
   main()

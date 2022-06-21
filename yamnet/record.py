@@ -86,14 +86,14 @@ def record(file_name):
     # Stop and close the stream 
     stream.stop_stream()
 
-    print('Finished recording')
-    
+    print('---Finished recording---')
+
     # Save the recorded data as a WAV file
-    wf = wave.open(file_name, 'wb')
+    wf = wave.open(f'yamnet/{file_name}', 'wb')
     wf.setnchannels(CHANNELS)
     wf.setsampwidth(p.get_sample_size(FORMAT))
     wf.setframerate(FS)
     wf.writeframes(b''.join(frames))
     wf.close()
 
-    print('Saved file')
+    print('---Saved file---')
