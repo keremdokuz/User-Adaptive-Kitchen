@@ -16,26 +16,29 @@
 """Inference demo for YAMNet."""
 from __future__ import division, print_function
 
-import sys
+import time
 
 import numpy as np
 import resampy
 import soundfile as sf
-import tensorflow as tf
+import record
 
 import params as yamnet_params
 import yamnet as yamnet_model
 
 
-def main(argv):
-  assert argv, 'Usage: inference.py <wav file> <wav file> ...'
-
+def main():
   params = yamnet_params.Params()
   yamnet = yamnet_model.yamnet_frames_model(params)
-  yamnet.load_weights('yamnet.h5')
-  yamnet_classes = yamnet_model.class_names('yamnet_class_map.csv')
+  yamnet.load_weights('yamnet/model/yamnet.h5')
+  yamnet_classes = yamnet_model.class_names('yamnet/model/yamnet_class_map.csv')
+  file_name = "output.wav"
 
-  for file_name in argv:
+  while(1):
+    record.record(file_name)
+    # time.sleep(5.5) -> maybe not necessary?
+    
+    print('Predicting...')
     # Decode the WAV file.
     wav_data, sr = sf.read(file_name, dtype=np.int16)
     assert wav_data.dtype == np.int16, 'Bad sample type: %r' % wav_data.dtype
@@ -55,10 +58,13 @@ def main(argv):
     prediction = np.mean(scores, axis=0)
     # Report the highest-scoring classes and their scores.
     top5_i = np.argsort(prediction)[::-1][:5]
+
+    
+    print("======================================")
     print(file_name, ':\n' +
           '\n'.join('  {:12s}: {:.3f}'.format(yamnet_classes[i], prediction[i])
                     for i in top5_i))
-
+    print("======================================")
 
 if __name__ == '__main__':
-  main(sys.argv[1:])
+  main()
