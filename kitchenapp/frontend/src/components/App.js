@@ -7,7 +7,7 @@ export default class App extends Component {
         super(props);
 
         this.state = {
-            steps: {"1": "chopping", "2": "runningWater", "3": "microwave", "4": "nothing"},
+            steps: {"1": "nothing", "2": "runningWater", "3": "chopping", "4": "microwave" },
             currentStep: 1,
             totalSteps: 4,
 

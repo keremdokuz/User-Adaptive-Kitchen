@@ -6,5 +6,5 @@
 /kitchenapp/frontend/__pycache__/
 /kitchenapp/api/__pycache__/
 /kitchenapp/kitchenapp/__pycache__/
-/yamnet/__pycache__/
+/kitchenapp/yamnet/__pycache__/
 /yamnet/*.wav
