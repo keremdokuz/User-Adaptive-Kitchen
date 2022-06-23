@@ -57,7 +57,7 @@ export default class App extends Component {
 
     async waitForNextStep() {
         while (true) {
-            console.log("Current class label", classLabel);
+            console.log("Current class label", classLabel, "with confidence", confidence);
             console.log("Current step:", this.state.steps[this.state.currentStep]);
             if (classLabel === this.state.steps[this.state.currentStep + 1]) {
                 console.log("Next step");

@@ -1,6 +1,6 @@
 import argparse
 import wave
-import yamnet.microphones
+import microphones
 import pyaudio
 
 

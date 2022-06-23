@@ -19,10 +19,10 @@ from __future__ import division, print_function
 import numpy as np
 import resampy
 import soundfile as sf
-import yamnet.record as record
+import record
 
-import yamnet.params as yamnet_params
-import yamnet.yamnet as yamnet_model
+import params as yamnet_params
+import yamnet as yamnet_model
 
 def start():
   params = yamnet_params.Params()
@@ -62,4 +62,4 @@ def start():
                   for i in top5_i))
   print("======================================")
 
-  return yamnet_classes[top5_i[0]]
+  return yamnet_classes[top5_i[0]], prediction[top5_i[0]]
