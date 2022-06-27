@@ -57,13 +57,29 @@ export default class App extends Component {
 
     async waitForNextStep() {
         while (true) {
+            var xhr = new XMLHttpRequest();
+
+            
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    var lines = xhr.response.split('\n');
+                    var confidenceString = lines[18]
+                    
+                    confidence = confidenceString.substring(confidenceString.indexOf('"') + 1)
+                    console.log(confidence);
+                }
+            }
+
+            xhr.open('POST', "http://127.0.0.1:8000/", true);
+            xhr.send('');
+
             console.log("Current class label", classLabel, "with confidence", confidence);
             console.log("Current step:", this.state.steps[this.state.currentStep]);
             if (classLabel === this.state.steps[this.state.currentStep + 1]) {
                 console.log("Next step");
                 this.nextStep();
             }
-            await new Promise(r => setTimeout(r, 500));
+            await new Promise(r => setTimeout(r, 5000));
         }
     }
     render()  {

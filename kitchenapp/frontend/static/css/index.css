@@ -6,6 +6,10 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
+#app {
+    height: 100vh;
+}
+
 h1 {font-family: Calibri;
     font-size:xx-large;
 
