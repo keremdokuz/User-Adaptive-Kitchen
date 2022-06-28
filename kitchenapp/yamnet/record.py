@@ -16,14 +16,6 @@ SECONDS = 5
 
 MICROPHONE_INDEX = 0
 
-p = pyaudio.PyAudio()
-stream = p.open(format=FORMAT,
-                channels=CHANNELS,
-                rate=FS,
-                frames_per_buffer=CHUNK,
-                input=True,
-                input_device_index=MICROPHONE_INDEX)
-                    
 
 def _set_mic_index():
     ###########################
@@ -66,7 +58,7 @@ def _set_mic_index():
     print("Using mic: %s" % mic_desc)
 
 
-def record(file_name):
+def record(file_name, stream, p):
     # TODO: Implement microphone selection
     #print(MICROPHONE_INDEX)
     #if MICROPHONE_INDEX == -1:
@@ -74,7 +66,6 @@ def record(file_name):
 
     print('Recording...')  
 
-    stream.start_stream()
     frames = []  # Initialize array to store frames
 
     # Store data in chunks for 3 seconds
@@ -83,7 +74,7 @@ def record(file_name):
         frames.append(data)
 
     # Stop and close the stream 
-    stream.stop_stream()
+    #stream.stop_stream()
 
     print('---Finished recording---')
 

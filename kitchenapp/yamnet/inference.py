@@ -24,14 +24,14 @@ import record
 import params as yamnet_params
 import yamnet as yamnet_model
 
-def start():
+def start(stream, p):
   params = yamnet_params.Params()
   yamnet = yamnet_model.yamnet_frames_model(params)
   yamnet.load_weights('yamnet/model/yamnet.h5')
   yamnet_classes = yamnet_model.class_names('yamnet/model/yamnet_class_map.csv')
   file_name = "output.wav"
 
-  record.record(file_name)
+  record.record(file_name, stream, p)
   # time.sleep(5.5) -> maybe not necessary?
 
   print('Predicting...')
