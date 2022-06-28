@@ -59,22 +59,26 @@ export default class App extends Component {
         while (true) {
             var xhr = new XMLHttpRequest();
 
-            
+            xhr.responseType = "json";
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4) {
-                    var lines = xhr.response.split('\n');
-                    var confidenceString = lines[18]
+
+
+                    //var lines = xhr.response.split('\n');
+                    //var confidenceString = lines[18]
                     
-                    confidence = confidenceString.substring(confidenceString.indexOf('"') + 1)
-                    console.log(confidence);
+                    //confidence = confidenceString.substring(confidenceString.indexOf('"') + 1)
+                    //console.log(confidence);
                 }
             }
 
-            xhr.open('POST', "http://127.0.0.1:8000/", true);
+            xhr.open('GET', "http://127.0.0.1:8000/predict", true);
             xhr.send('');
-
-            console.log("Current class label", classLabel, "with confidence", confidence);
-            console.log("Current step:", this.state.steps[this.state.currentStep]);
+            var str = JSON.parse(xhr.response);
+            console.log(str);
+  
+            //console.log("Current class label", xhr.response, "with confidence", confidence);
+            //console.log("Current step:", this.state.steps[this.state.currentStep]);
             if (classLabel === this.state.steps[this.state.currentStep + 1]) {
                 console.log("Next step");
                 this.nextStep();

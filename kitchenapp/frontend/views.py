@@ -1,6 +1,8 @@
+import json
 import pyaudio
 from django.shortcuts import render
 import random
+from django.http import JsonResponse
 
 from inference import start
 
@@ -35,10 +37,18 @@ def index(request, *args, **kwargs):
     if request.method == "POST":
         print("WE got here")
         class_label, confidence = start(stream, p)
+
         return render(request, 'frontend/index.html', {'classLabel': class_label, 'confidence': confidence})
     
     return render(request, 'frontend/index.html', {'classLabel': "initial", 'confidence': 0})
 
 #@csrf_exempt
 #def App(request, *args, **kwargs):
+
+@csrf_exempt
+def getPrediction(request, *args, **kwargs):
+    class_label, confidence = start(stream, p)
+    my_data = {'classLabel': "claabel", 'confidence': "confie"}
+    response = JsonResponse(my_data)
+    return response
     
