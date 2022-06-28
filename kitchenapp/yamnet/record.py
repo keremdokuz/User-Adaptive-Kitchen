@@ -91,7 +91,7 @@ class Recorder:
         print('---Finished recording---')
 
         # Save the recorded data as a WAV file
-        wf = wave.open(f'./kitchenapp/yamnet/{self.file_name}', 'wb')
+        wf = wave.open(f'yamnet/{self.file_name}', 'wb')
         wf.setnchannels(Recorder.CHANNELS)
         wf.setsampwidth(self.p.get_sample_size(Recorder.FORMAT))
         wf.setframerate(Recorder.FS)

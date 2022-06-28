@@ -27,8 +27,8 @@ import yamnet as yamnet_model
 def start():
   params = yamnet_params.Params()
   yamnet = yamnet_model.yamnet_frames_model(params)
-  yamnet.load_weights('kitchenapp/yamnet/model/yamnet.h5')
-  yamnet_classes = yamnet_model.class_names('kitchenapp/yamnet/model/yamnet_class_map.csv')
+  yamnet.load_weights('yamnet/model/yamnet.h5')
+  yamnet_classes = yamnet_model.class_names('yamnet/model/yamnet_class_map.csv')
   file_name = "output.wav"
 
   recorder = Recorder(file_name)
@@ -39,7 +39,7 @@ def start():
 
   print('Predicting...')
   # Decode the WAV file.
-  wav_data, sr = sf.read("kitchenapp/yamnet/output.wav", dtype=np.int16)
+  wav_data, sr = sf.read("yamnet/output.wav", dtype=np.int16)
   assert wav_data.dtype == np.int16, 'Bad sample type: %r' % wav_data.dtype
   waveform = wav_data / 32768.0  # Convert to [-1.0, +1.0]
   waveform = waveform.astype('float32')
