@@ -1,43 +1,18 @@
-import json
-import pyaudio
 from django.shortcuts import render
-import random
 from django.http import JsonResponse, HttpResponseBadRequest
-
-from inference import start
-
 from django.views.decorators.csrf import csrf_exempt
 
-# Create your views here.
+from inference import start
+from record import Recorder
 
-
-# Variables
-FS = 44100  # Record at 44100 samples per second
-FORMAT = pyaudio.paInt16
-CHANNELS = 1
-RATE = 16000
-CHUNK = 1024
-MICROPHONES_DESCRIPTION = []
-FPS = 60.0
-SECONDS = 5
-MICROPHONE_INDEX = 0
-
-p = pyaudio.PyAudio()
-stream = p.open(format=FORMAT,
-                channels=CHANNELS,
-                rate=FS,
-                frames_per_buffer=CHUNK,
-                input=True,
-                input_device_index=MICROPHONE_INDEX)
-
-stream.start_stream()
+# set up recorder and stream
+file_name = "output.wav"
+recorder = Recorder(file_name)
 
 @csrf_exempt
 def index(request, *args, **kwargs):
     if request.method == "POST":
-        print("WE got here")
-        class_label, confidence = start(stream, p)
-
+        class_label, confidence = start(recorder)
         return render(request, 'frontend/index.html', {'classLabel': class_label, 'confidence': confidence})
     
     return render(request, 'frontend/index.html', {'classLabel': "initial", 'confidence': 0})
@@ -51,7 +26,7 @@ def get_prediction(request):
 
     if is_ajax:
         if request.method == 'GET':
-            class_label, confidence = start(stream, p)
+            class_label, confidence = start(recorder)
             my_data = {'classLabel': class_label, 'confidence': str(round(confidence, 2))}
             return JsonResponse(my_data)
         return JsonResponse({'status': 'Invalid request'}, status=400)
