@@ -2,7 +2,7 @@ import json
 import pyaudio
 from django.shortcuts import render
 import random
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseBadRequest
 
 from inference import start
 
@@ -45,10 +45,15 @@ def index(request, *args, **kwargs):
 #@csrf_exempt
 #def App(request, *args, **kwargs):
 
-@csrf_exempt
-def getPrediction(request, *args, **kwargs):
-    class_label, confidence = start(stream, p)
-    my_data = {'classLabel': "claabel", 'confidence': "confie"}
-    response = JsonResponse(my_data)
-    return response
-    
+
+def get_prediction(request):
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+
+    if is_ajax:
+        if request.method == 'GET':
+            class_label, confidence = start(stream, p)
+            my_data = {'classLabel': class_label, 'confidence': str(round(confidence, 2))}
+            return JsonResponse(my_data)
+        return JsonResponse({'status': 'Invalid request'}, status=400)
+    else:
+        return HttpResponseBadRequest('Invalid request')

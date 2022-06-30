@@ -57,35 +57,42 @@ export default class App extends Component {
 
     async waitForNextStep() {
         while (true) {
-            var xhr = new XMLHttpRequest();
-
-            xhr.responseType = "json";
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-
-
-                    //var lines = xhr.response.split('\n');
-                    //var confidenceString = lines[18]
-                    
-                    //confidence = confidenceString.substring(confidenceString.indexOf('"') + 1)
-                    //console.log(confidence);
+            $.ajax({
+                url: "http://127.0.0.1:8000/predict",
+                type: "GET",
+                dataType: "json",
+                success: (data) => {
+                    console.log(data);
+                },
+                error: (error) => {
+                    console.log(error);
                 }
-            }
-
-            xhr.open('GET', "http://127.0.0.1:8000/predict", true);
-            xhr.send('');
-            var str = JSON.parse(xhr.response);
-            console.log(str);
-  
-            //console.log("Current class label", xhr.response, "with confidence", confidence);
-            //console.log("Current step:", this.state.steps[this.state.currentStep]);
-            if (classLabel === this.state.steps[this.state.currentStep + 1]) {
-                console.log("Next step");
-                this.nextStep();
-            }
+            });
             await new Promise(r => setTimeout(r, 5000));
         }
     }
+//    async waitForNextStep() {
+//        while (true) {
+//            var xhr = new XMLHttpRequest();
+//
+//            xhr.responseType = "json";
+//            xhr.onreadystatechange = function() {
+//
+//            }
+//
+//            xhr.open('GET', "http://127.0.0.1:8000/predict", true);
+//            xhr.send('');
+//            console.log(JSON.stringify(xhr.response));
+//
+//            //console.log("Current class label", xhr.response, "with confidence", confidence);
+//            //console.log("Current step:", this.state.steps[this.state.currentStep]);
+//            if (classLabel === this.state.steps[this.state.currentStep + 1]) {
+//                console.log("Next step");
+//                this.nextStep();
+//            }
+//            await new Promise(r => setTimeout(r, 5000));
+//        }
+//    }
     render()  {
         return <div>
                 <center><h1>HOW TO COOK THIS DISH</h1></center>
