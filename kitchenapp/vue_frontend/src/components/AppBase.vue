@@ -4,9 +4,11 @@
       <v-toolbar-title>User Adaptive Kitchen</v-toolbar-title>
 
       <v-toolbar-items>
-        <v-btn @click="getPrediction" class="ml-4" color="blue"
-          >Get Prediction</v-btn
-        >
+        <MicrophoneSelection />
+
+        <v-btn @click="getPrediction" class="ml-4" color="blue">
+          Get Prediction
+        </v-btn>
       </v-toolbar-items>
 
       <v-card-title>
@@ -24,12 +26,14 @@
 <script>
 import axios from "axios";
 import CookingRecipe from "./CookingRecipe";
+import MicrophoneSelection from "./MicrophoneSelection";
 
 export default {
   name: "App",
 
   components: {
     CookingRecipe,
+    MicrophoneSelection,
   },
 
   computed: {

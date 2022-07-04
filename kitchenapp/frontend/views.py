@@ -2,6 +2,8 @@ from wsgiref import headers
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
+from pydantic import Json
+from rest_framework.parsers import JSONParser
 
 from inference import start
 from record import Recorder
@@ -36,3 +38,15 @@ def get_prediction(request):
         return JsonResponse({'status': 'Invalid request'}, status=400)
     else:
         return HttpResponseBadRequest('Invalid request')
+
+@csrf_exempt
+def list_available_microphones(request):
+    if request.method == 'GET':
+        audio_devices = recorder.available_microphones()
+        data = {'devices': audio_devices}
+        return JsonResponse(data)
+    elif request.method == 'POST':
+        selected_mic = JSONParser().parse(request)
+        recorder.set_mic_index(selected_mic['idx'])
+        return JsonResponse(selected_mic)
+    return JsonResponse({'status': 'Invalid request'}, status=400)
