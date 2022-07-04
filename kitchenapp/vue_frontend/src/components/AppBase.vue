@@ -4,22 +4,32 @@
       <v-toolbar-title>User Adaptive Kitchen</v-toolbar-title>
 
       <v-toolbar-items>
-        <MicrophoneSelection />
-
-        <v-btn @click="getPrediction" class="ml-4" color="blue">
-          Get Prediction
-        </v-btn>
+        <v-card-title>
+          <v-progress-circular v-if="isLoading" indeterminate />
+        </v-card-title>
       </v-toolbar-items>
-
-      <v-card-title>
-        <v-card-text v-if="!isLoading">
-          prediction:{{ prediction }} confidence:{{ confidence }}
-        </v-card-text>
-        <v-progress-circular v-if="isLoading" indeterminate />
-      </v-card-title>
     </v-app-bar>
 
-    <CookingRecipe index = "0"/>
+    <v-row>
+      <v-col cols="10"><CookingRecipe index = "0"/></v-col>
+      <v-col>
+        <v-card>
+          <v-card-title> Prediction Results </v-card-title>
+          <v-card-text>
+            <v-card-text> prediction:{{ prediction }} </v-card-text>
+            <v-card-text> confidence:{{ confidence }} </v-card-text>
+          </v-card-text>
+          <v-card-actions>
+            <MicrophoneSelection />
+          </v-card-actions>
+          <v-card-actions>
+             <v-btn v-ripple @click="handleListening" class="ml-4" color="blue">
+              {{ listenText }}
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -37,6 +47,9 @@ export default {
   },
 
   computed: {
+    listenText() {
+      return this.listen ? "Stop Listening" : "Start Listening";
+    },
     prediction() {
       return this.currentPrediction ? this.currentPrediction : "None";
     },
@@ -46,17 +59,27 @@ export default {
   },
 
   methods: {
+    handleListening() {
+      this.listen = !this.listen;
+      if (this.listen) {
+        this.getPrediction();
+      }
+    },
+
     async getPrediction() {
-      (this.isLoading = true),
-        axios
-          .get("http://127.0.0.1:8000/predict")
-          .then((res) => {
-            console.log(res);
-            this.currentPrediction = res.data["classLabel"];
-            this.currentConfidence = res.data["confidence"];
-            this.isLoading = false;
-          })
-          .catch((err) => console.log(err));
+      this.isLoading = true;
+      axios
+        .get("http://127.0.0.1:8000/predict")
+        .then((res) => {
+          console.log(res);
+          this.currentPrediction = res.data["classLabel"];
+          this.currentConfidence = res.data["confidence"];
+          this.isLoading = false;
+          if (this.listen) {
+            this.getPrediction();
+          }
+        })
+        .catch((err) => console.log(err));
     },
   },
 
@@ -64,6 +87,7 @@ export default {
     currentPrediction: "",
     currentConfidence: -1,
     isLoading: false,
+    listen: false,
   }),
 };
 </script>
