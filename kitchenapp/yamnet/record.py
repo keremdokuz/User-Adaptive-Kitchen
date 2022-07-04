@@ -28,7 +28,7 @@ class Recorder:
         self.MICROPHONES_DESCRIPTION = []
         self.FPS = 60.0
         self.SECONDS = 5
-        self.MICROPHONE_INDEX = -1
+        self.MICROPHONE_INDEX = 0
 
         self.p = pyaudio.PyAudio()
         self.stream = self.p.open(format=self.FORMAT,
@@ -38,42 +38,13 @@ class Recorder:
                                   input=True,
                                   input_device_index=self.MICROPHONE_INDEX)
 
-    def _set_mic_index(self):
-        ###########################
-        # Check Microphone
-        ###########################
-        print("=====")
-        print("1 / 2: Checking Microphones... ")
-        print("=====")
+    def available_microphones(self):
+        return microphones.list_microphones()
 
-        desc, mics, indices = microphones.list_microphones()
-        print(desc)
-        if len(mics) == 0:
-            print("Error: No microphone found.")
-            exit()
-
-        self.MICROPHONE_INDEX = indices[0]
-
-        while True:
-            mic_in = input("Select microphone: ")
-            if mic_in != '':
-                self.MICROPHONE_INDEX = int(mic_in)
-                break
-            else:
-                print("Invalid microphone")
-
-        # Find description that matches the mic index
-        mic_desc = ""
-        for k in range(len(indices)):
-            i = indices[k]
-            if i == self.MICROPHONE_INDEX:
-                mic_desc = mics[k]
-        print("Using mic: %s" % mic_desc)
+    def set_mic_index(self, idx):
+        self.MICROPHONE_INDEX = idx
 
     def record(self):
-        print(self.MICROPHONE_INDEX)
-        if self.MICROPHONE_INDEX == -1:
-            self._set_mic_index()
 
         print('Recording...')
 

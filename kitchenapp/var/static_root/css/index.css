@@ -1,0 +1,49 @@
+body {
+    background-image: url("https://previews.123rf.com/images/sauvignon/sauvignon1505/sauvignon150500973/40251613-the-concept-of-cooking-background-.jpg");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#app {
+    height: 100vh;
+}
+
+h1 {font-family: Calibri;
+    font-size:xx-large;
+
+
+}
+p {font-family: Calibri;
+    font-size: large;
+    margin-bottom: 0px;
+    margin-left: 10px;
+
+}
+hidden {font-family: Calibri;
+    display: none;
+    font-size: medium;
+    margin-left: 20px;
+
+}
+
+#left {
+    float:left;
+
+}
+#right {
+    float:right;
+
+}
+
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
