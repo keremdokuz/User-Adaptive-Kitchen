@@ -19,7 +19,7 @@
       </v-card-title>
     </v-app-bar>
 
-    <CookingRecipe />
+    <CookingRecipe index = "0"/>
   </div>
 </template>
 
