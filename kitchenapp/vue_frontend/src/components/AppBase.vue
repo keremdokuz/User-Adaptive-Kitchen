@@ -4,7 +4,6 @@
       <v-toolbar-title>User Adaptive Kitchen</v-toolbar-title>
 
       <v-toolbar-items>
-<<<<<<< HEAD
         <MicrophoneSelection />
 
         <v-btn @click="start" v-if="!isListening" class="ml-4" color="blue">
@@ -13,15 +12,12 @@
         <v-btn @click="stop" v-if="isListening" class="ml-4" color="blue">
           Stop Predicting
         </v-btn>
-=======
         <v-card-title>
           <v-progress-circular v-if="isLoading" indeterminate />
         </v-card-title>
->>>>>>> de3dfc95850abf454e644032520aca824cff85d4
       </v-toolbar-items>
     </v-app-bar>
 
-<<<<<<< HEAD
     <v-stepper v-model="currentStep" vertical>
     <v-container v-for="cookingStep in recipe.steps" :key="cookingStep.id">
       <v-stepper-step
@@ -41,7 +37,6 @@
       </v-stepper-content>
     </v-container>
   </v-stepper> />
-=======
     <v-row>
       <v-col cols="10"><CookingRecipe index = "0"/></v-col>
       <v-col>
@@ -62,7 +57,6 @@
         </v-card>
       </v-col>
     </v-row>
->>>>>>> de3dfc95850abf454e644032520aca824cff85d4
   </div>
 </template>
 
@@ -99,7 +93,6 @@ export default {
     },
 
     async getPrediction() {
-<<<<<<< HEAD
         (this.isLoading = true),
           await axios
             .get("http://127.0.0.1:8000/predict")
@@ -122,21 +115,6 @@ export default {
         this.getPrediction();
         await new Promise(r => setTimeout(r, 6000));
         }
-=======
-      this.isLoading = true;
-      axios
-        .get("http://127.0.0.1:8000/predict")
-        .then((res) => {
-          console.log(res);
-          this.currentPrediction = res.data["classLabel"];
-          this.currentConfidence = res.data["confidence"];
-          this.isLoading = false;
-          if (this.listen) {
-            this.getPrediction();
-          }
-        })
-        .catch((err) => console.log(err));
->>>>>>> de3dfc95850abf454e644032520aca824cff85d4
     },
     
     stop() {
@@ -149,7 +127,6 @@ export default {
     currentPrediction: "",
     currentConfidence: -1,
     isLoading: false,
-<<<<<<< HEAD
     isListening: false,
     currentStep: 1,
     recipe: {
@@ -181,9 +158,6 @@ export default {
         },
       ],
     },
-=======
-    listen: false,
->>>>>>> de3dfc95850abf454e644032520aca824cff85d4
   }),
 };
 </script>

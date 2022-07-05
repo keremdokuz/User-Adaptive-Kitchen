@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<template>
- 
-=======
 <template >
   <div>
     <div v-if="index > 0">
@@ -45,7 +41,6 @@
   </div>
   
   
->>>>>>> de3dfc95850abf454e644032520aca824cff85d4
 </template>
 
 
@@ -56,9 +51,6 @@ export default {
   },
   data() {
     return {
-<<<<<<< HEAD
-     
-=======
       snackbar: false,
       timeout:2000,
       currentStep: 1,
@@ -95,7 +87,6 @@ export default {
           },
         ],
       },
->>>>>>> de3dfc95850abf454e644032520aca824cff85d4
     };
   },
 };
