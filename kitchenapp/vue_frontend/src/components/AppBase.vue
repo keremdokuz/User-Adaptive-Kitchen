@@ -2,20 +2,6 @@
   <div>
     <v-app-bar dense dark>
       <v-toolbar-title>User Adaptive Kitchen</v-toolbar-title>
-
-      <v-toolbar-items>
-        <MicrophoneSelection />
-
-        <v-btn @click="start" v-if="!isListening" class="ml-4" color="blue">
-          Start Predicting
-        </v-btn>
-        <v-btn @click="stop" v-if="isListening" class="ml-4" color="blue">
-          Stop Predicting
-        </v-btn>
-        <v-card-title>
-          <v-progress-circular v-if="isLoading" indeterminate />
-        </v-card-title>
-      </v-toolbar-items>
     </v-app-bar>
 
     <v-row>
@@ -34,6 +20,9 @@
             <v-btn v-ripple @click="handleListening" class="ml-4" color="blue">
               {{ listenText }}
             </v-btn>
+            <v-card-title>
+              <v-progress-circular v-if="isLoading" indeterminate />
+            </v-card-title>
           </v-card-actions>
           <v-card-text>
             <RecipeList v-model="selectedRecipe" :recipes="recipes" />
@@ -46,9 +35,9 @@
 
 <script>
 import axios from "axios";
-import CookingRecipe from "./CookingRecipe";
-import MicrophoneSelection from "./MicrophoneSelection";
-import RecipeList from "./RecipeList";
+import CookingRecipe from "@/components/CookingRecipe.vue";
+import MicrophoneSelection from "@/components/MicrophoneSelection.vue";
+import RecipeList from "@/components/RecipeList.vue";
 
 export default {
   name: "App",
@@ -93,26 +82,16 @@ export default {
               this.currentPrediction = res.data["classLabel"];
               this.currentConfidence = res.data["confidence"];
               this.isLoading = false;
-              if (this.currentPrediction === this.recipe.steps[this.currentStep].feature) {
+              if (this.currentPrediction === this.recipes[this.selectedRecipe].steps[this.currentStep].feature) {
                 console.log("Next step");
                 this.currentStep += 1;
                 }
+              if (this.listen) {
+                this.getPrediction();
+              }
             })
             .catch((err) => console.log(err));
-            },
-    
-    async start() {
-      this.isListening = true;
-      while(this.isListening) {
-        this.getPrediction();
-        await new Promise(r => setTimeout(r, 6000));
-        }
-    },
-    
-    stop() {
-      this.isListening = false;
-    },
-    
+            }
   },
 
   data: () => ({
@@ -121,7 +100,6 @@ export default {
     isLoading: false,
     listen: false,
     selectedRecipe: -1,
-    isListening: false,
     currentStep: 1,
     recipes: [
       {
@@ -147,7 +125,7 @@ export default {
           {
             id: 3,
             desc: "Chop vegetables and put them into pot",
-            feature: "chopping",
+            feature: "Silence",
             hint: "Tomatoes work especially well.",
             message: "Sound recognized",
           },
