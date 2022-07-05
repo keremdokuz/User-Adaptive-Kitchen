@@ -3,7 +3,8 @@
     <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }">
         <v-btn color="blue" class="ml-4" v-bind="attrs" v-on="on">
-          Select Microphone
+          {{ buttonText }}
+          <v-progress-circular v-if="isLoading" indeterminate />
         </v-btn>
       </template>
 
@@ -18,7 +19,7 @@
               <v-list-item-content>
                 <v-list-item-title
                   v-text="device.description"
-                ></v-list-item-title>
+                />
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
@@ -38,7 +39,15 @@ export default {
       devices: [],
       isLoading: false,
       selectedItem: -1,
+      deviceDescription: "",
     };
+  },
+  computed: {
+    buttonText() {
+      return this.deviceDescription === ""
+        ? "SELECT MICROPHONE"
+        : this.deviceDescription.toUpperCase();
+    },
   },
   watch: {
     dialog(newValue) {
@@ -56,13 +65,14 @@ export default {
     },
     selectedItem(newValue) {
       if (newValue >= 0) {
+        this.isLoading = true;
         axios
           .post("http://127.0.0.1:8000/mics", {
-            "idx": newValue,
+            device: this.devices[newValue],
           })
           .then((res) => {
             console.log(res);
-            this.devices = res.data["devices"];
+            this.deviceDescription = res.data["device"]["description"];
             this.isLoading = false;
           })
           .catch((err) => console.log(err));

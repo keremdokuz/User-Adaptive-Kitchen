@@ -47,6 +47,6 @@ def list_available_microphones(request):
         return JsonResponse(data)
     elif request.method == 'POST':
         selected_mic = JSONParser().parse(request)
-        recorder.set_mic_index(selected_mic['idx'])
+        recorder.set_mic_index(selected_mic['device']['index'])
         return JsonResponse(selected_mic)
     return JsonResponse({'status': 'Invalid request'}, status=400)
