@@ -66,6 +66,11 @@ export default {
       }
       this.$emit("input", value);
     },
+    value(newValue) {
+      if (newValue > 0) {
+        this.currentStep = newValue;
+      }
+    },
   },
   data() {
     return {

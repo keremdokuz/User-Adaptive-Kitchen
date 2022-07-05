@@ -5,7 +5,9 @@
     </v-app-bar>
 
     <v-row>
-      <v-col cols="8"><CookingRecipe v-model="currentStep" :recipe="recipe" /></v-col>
+      <v-col cols="8"
+        ><CookingRecipe v-model="currentStep" :recipe="recipe"
+      /></v-col>
       <v-col cols="4">
         <v-card>
           <v-card-title> Prediction Results </v-card-title>
@@ -74,24 +76,28 @@ export default {
     },
 
     async getPrediction() {
-        (this.isLoading = true),
-          await axios
-            .get("http://127.0.0.1:8000/predict")
-            .then((res) => {
-              console.log(res);
-              this.currentPrediction = res.data["classLabel"];
-              this.currentConfidence = res.data["confidence"];
-              this.isLoading = false;
-              if (this.currentPrediction === this.recipes[this.selectedRecipe].steps[this.currentStep].feature) {
-                console.log("Next step");
-                this.currentStep += 1;
-                }
-              if (this.listen) {
-                this.getPrediction();
-              }
-            })
-            .catch((err) => console.log(err));
-            }
+      this.isLoading = true;
+      axios
+        .get("http://127.0.0.1:8000/predict")
+        .then((res) => {
+          console.log(res);
+          this.currentPrediction = res.data["classLabel"];
+          this.currentConfidence = res.data["confidence"];
+          this.isLoading = false;
+          if (
+            this.selectedRecipe >= 0 &&
+            this.currentPrediction ===
+              this.recipes[this.selectedRecipe].steps[this.currentStep].feature
+          ) {
+            console.log("Next step");
+            this.currentStep += 1;
+          }
+          if (this.listen) {
+            this.getPrediction();
+          }
+        })
+        .catch((err) => console.log(err));
+    },
   },
 
   data: () => ({
