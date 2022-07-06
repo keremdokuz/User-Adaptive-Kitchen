@@ -7,8 +7,14 @@
             :complete="currentStep > cookingStep.id"
             :step="`${cookingStep.id}`"
           >
+          <h1>
             {{ cookingStep.desc }}
-            <small>{{ cookingStep.hint }}</small>
+          </h1>
+          <br>
+          <h3>
+            {{ cookingStep.hint }}
+          </h3>
+            
           </v-stepper-step>
 
           <v-stepper-content :step="`${cookingStep.id}`">
@@ -47,7 +53,8 @@
     </div>
     <div v-else>
       <v-container>
-        SELECT A RECIPE
+        <center style="font-size:100px">SELECT A RECIPE</center>
+        
       </v-container>
     </div>
   </div>
