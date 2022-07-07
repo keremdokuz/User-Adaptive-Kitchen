@@ -307,6 +307,7 @@ export default {
             feature: ["nothing"],
             hint: "0,5 Liter Wasser in den Wasserkocher geben und anmachen. Derweil Instant-Nudel Verpackung aufmachen und Nudeln zusammen mit allen anderen Zutaten in eine Schüssel geben.",
             message: "Start.",
+            picture_url: "https://www.carlroth.com/medias/HHY9-01-1000Wx1000H?context=bWFzdGVyfGltYWdlc3wxMzgxOTN8aW1hZ2UvanBlZ3xpbWFnZXMvaDYyL2hlNy84ODI4NDE2Njg4MTU4LmpwZ3w0YWRiNWMxNGIxYjljM2EwZmNiNTVhODYxODE4NDhiOWUwZTQ5OWU4ZjczYmU3NDRjODA2M2Q2MjFmZTBiZDM2"
           },
           {
             id: 2,
@@ -314,6 +315,7 @@ export default {
             feature: ["boiling"],
             hint: "Wasser in die Schüssel tun. Schüssel mit irgendetwas abdecken. Denk dran eine Unterlage für die Schüssel zu haben, damit man sie später transportieren kann. Ca.5 Minuten warten.",
             message: "Wecker auf 5 Minuten gestellt.",
+            picture_url: "https://wirin.de/images/kids/texte/2014_35_Kochtopf-4c.jpg"
           },
           {
             id: 3,
@@ -321,6 +323,7 @@ export default {
             feature: ["microwave"],
             hint: "Kühlschrank nach etwaigen Resten suchen. Diese auf einen Teller geben und 1-2 Minuten in der Mikrowelle erhitzen.",
             message: "Letzter Schritt.",
+            picture_url: "https://m.media-amazon.com/images/I/81xxOPvz+9L._AC_SX466_.jpg"
           },
         ],
       },
