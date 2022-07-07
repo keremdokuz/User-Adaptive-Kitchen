@@ -24,8 +24,9 @@
             <v-card
               color="grey lighten-1"
               class="mb-12"
-              height="200px"
-            ></v-card>
+              height="300px">
+              <img style="width:100%" v-if=cookingStep.picture_url :src="cookingStep.picture_url">
+            </v-card>
             <v-btn
               v-if="currentStep != recipe.steps.length"
               color="primary"
