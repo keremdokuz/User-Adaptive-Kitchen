@@ -7,18 +7,17 @@
             :complete="currentStep > cookingStep.id"
             :step="`${cookingStep.id}`"
           >
-          <h1>
-            {{ cookingStep.desc }}
-          </h1>
-          <br>
-          <h3>
-            {{ cookingStep.hint }}
-          </h3>
-          <br>
-          <small>
-            {{cookingStep.feature}}
-          </small>
-            
+            <h1>
+              {{ cookingStep.desc }}
+            </h1>
+            <br />
+            <h3>
+              {{ cookingStep.hint }}
+            </h3>
+            <br />
+            <small>
+              {{ features(cookingStep) }}
+            </small>
           </v-stepper-step>
 
           <v-stepper-content :step="`${cookingStep.id}`">
@@ -57,8 +56,7 @@
     </div>
     <div v-else>
       <v-container>
-        <center style="font-size:100px">SELECT A RECIPE</center>
-        
+        <center style="font-size: 100px">SELECT A RECIPE</center>
       </v-container>
     </div>
   </div>
@@ -69,6 +67,11 @@ export default {
   props: {
     recipe: Object,
     value: Number,
+  },
+  methods: {
+    features(cookingStep) {
+      return cookingStep.feature.join(", ");
+    },
   },
   watch: {
     currentStep(value) {
