@@ -21,12 +21,13 @@
           </v-stepper-step>
 
           <v-stepper-content :step="`${cookingStep.id}`">
-            <v-card
-              color="grey lighten-1"
-              class="mb-12"
-              height="300px">
-              <img style="width:100%" v-if=cookingStep.picture_url :src="cookingStep.picture_url">
-            </v-card>
+            <v-img
+              v-if="cookingStep.picture_url"
+              :src="cookingStep.picture_url"
+              contain
+              max-height="300"
+            >
+            </v-img>
             <v-btn
               v-if="currentStep != recipe.steps.length"
               color="primary"
