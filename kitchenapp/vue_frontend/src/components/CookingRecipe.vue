@@ -14,6 +14,10 @@
           <h3>
             {{ cookingStep.hint }}
           </h3>
+          <br>
+          <small>
+            {{cookingStep.feature}}
+          </small>
             
           </v-stepper-step>
 
