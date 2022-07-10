@@ -49,8 +49,13 @@
               Go Back
             </v-btn>
 
-            <v-snackbar v-model="snackbar" :timeout="timeout">
+            <v-snackbar v-model="snackbar" :timeout="timeout" :multiLine="true">
+            <h1>
+
               {{ recipe.steps[currentStep - 1].message }}
+
+            </h1>
+              
             </v-snackbar>
           </v-stepper-content>
         </v-container>

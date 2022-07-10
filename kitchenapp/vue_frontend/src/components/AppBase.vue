@@ -268,7 +268,7 @@ export default {
           {
             id: 2,
             desc: "Teig erstellen",
-            feature: ["mixer"],
+            feature: ["Blender"],
             hint: "120 g weiche Butter mit Zucker, Vanillezucker und Eiern mixen, bis sich der Zucker aufgelöst hat. Mehl, Backpulver und Salz mischen, esslöffelweise unter die Eier-Masse mixen, sodass ein glatter Teig entsteht. Zitronenschale abreiben, unter den Teig mixen, dann nach und nach 60 ml Milch dazu gießen.",
             message: "Nächster Schritt.",
           },
