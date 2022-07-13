@@ -58,7 +58,7 @@ export default {
       return this.currentPrediction ? this.currentPrediction : "None";
     },
     confidence() {
-      return this.currentConfidence > 0 ? `${this.currentConfidence}` : "None";
+      return this.currentConfidence[0] > 0 ? `${this.currentConfidence}` : "None";
     },
     recipe() {
       return this.selectedRecipe >= 0
@@ -77,7 +77,7 @@ export default {
     checkPrediction() {
       return this.recipes[this.selectedRecipe].steps[
         this.currentStep
-      ].feature.some((feature) => feature === this.currentPrediction);
+      ].feature.some((feature) => this.currentPrediction.includes(feature));
     },
     async getPrediction() {
       this.isLoading = true;
@@ -85,8 +85,8 @@ export default {
         .get("http://127.0.0.1:8000/predict")
         .then((res) => {
           console.log(res);
-          this.currentPrediction = res.data["classLabel"];
-          this.currentConfidence = res.data["confidence"];
+          this.currentPrediction = [res.data["classLabel0"],res.data["classLabel1"],res.data["classLabel2"],res.data["classLabel3"],res.data["classLabel4"]];
+          this.currentConfidence = [res.data["confidence0"],res.data["confidence1"],res.data["confidence2"],res.data["confidence3"],res.data["confidence4"]];
           this.isLoading = false;
           if (this.selectedRecipe >= 0 && this.checkPrediction()) {
             console.log("Next step");

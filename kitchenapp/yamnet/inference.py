@@ -60,4 +60,4 @@ def start(recorder):
                     for i in top5_i))
     print("======================================")
 
-    return yamnet_classes[top5_i[0]], prediction[top5_i[0]]
+    return yamnet_classes[top5_i], prediction[top5_i]

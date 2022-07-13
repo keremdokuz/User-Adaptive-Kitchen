@@ -32,8 +32,16 @@ def get_prediction(request):
     if is_ajax:
         if request.method == 'GET':
             class_label, confidence = start(recorder)
-            my_data = {'classLabel': class_label,
-                       'confidence': str(round(confidence, 2))}
+            my_data = {'classLabel0': class_label[0],
+                        'classLabel1': class_label[1],
+                        'classLabel2': class_label[2],
+                        'classLabel3': class_label[3],
+                        'classLabel4': class_label[4],
+                        'confidence0': str(round(confidence[0], 2)),
+                        'confidence1': str(round(confidence[1], 2)),
+                        'confidence2': str(round(confidence[2], 2)),
+                        'confidence3': str(round(confidence[3], 2)),
+                        'confidence4': str(round(confidence[4], 2))}
             return JsonResponse(my_data)
         return JsonResponse({'status': 'Invalid request'}, status=400)
     else:
