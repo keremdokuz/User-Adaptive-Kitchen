@@ -5,19 +5,40 @@
     </v-app-bar>
 
     <v-row>
-      <v-col cols="8"
-        ><CookingRecipe v-model="currentStep" :recipe="recipe"
-      /></v-col>
+      <v-col cols="8">
+        <CookingRecipe v-model="currentStep" :recipe="recipe" />
+      </v-col>
       <v-col cols="4">
         <v-card>
           <v-card-title> Prediction Results </v-card-title>
+
           <v-card-text>
-            <v-card-text> prediction:{{ prediction }} </v-card-text>
-            <v-card-text> confidence:{{ confidence }} </v-card-text>
+            <v-list v-if="currentPrediction.length" dense elevation="2">
+              <v-list-item
+                dense
+                v-for="(prediction, i) in currentPrediction"
+                :key="i"
+              >
+                <v-list-item-avatar max-height="25" color="blue">
+                  %{{ currentConfidence[i] }}
+                </v-list-item-avatar>
+                <v-list-item-content color="gray">
+                  {{ prediction }}
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+            <v-list-item v-else-if="!this.listen">
+              Microphone is inactive at the moment.
+            </v-list-item>
+            <v-list-item v-else>
+              Waiting for prediction...
+            </v-list-item>
           </v-card-text>
+
           <v-card-actions>
             <MicrophoneSelection />
           </v-card-actions>
+
           <v-card-actions>
             <v-btn v-ripple @click="handleListening" class="ml-4" color="blue">
               {{ listenText }}
@@ -54,12 +75,6 @@ export default {
     listenText() {
       return this.listen ? "Stop Listening" : "Start Listening";
     },
-    prediction() {
-      return this.currentPrediction ? this.currentPrediction : "None";
-    },
-    confidence() {
-      return this.currentConfidence[0] > 0 ? `${this.currentConfidence}` : "None";
-    },
     recipe() {
       return this.selectedRecipe >= 0
         ? this.recipes[this.selectedRecipe]
@@ -75,9 +90,31 @@ export default {
       }
     },
     checkPrediction() {
-      return this.recipes[this.selectedRecipe].steps[
-        this.currentStep
-      ].feature.some((feature) => this.currentPrediction.includes(feature));
+      if (this.nextStepThreshold == 0) {
+        this.nextStepThreshold = 3;
+        this.isCurrentStepDone = false;
+        console.log("ready for next step");
+        return true;
+      }
+
+      if (
+        this.recipes[this.selectedRecipe].steps[
+          this.currentStep - 1
+        ].feature.some((feature) => {
+          return this.currentPrediction.includes(feature);
+        })
+      ) {
+        this.isCurrentStepDone = true;
+        console.log("detected current step");
+        return false;
+      }
+
+      if (this.isCurrentStepDone) {
+        this.nextStepThreshold--;
+        console.log("countdown");
+      }
+
+      return false;
     },
     async getPrediction() {
       this.isLoading = true;
@@ -85,8 +122,20 @@ export default {
         .get("http://127.0.0.1:8000/predict")
         .then((res) => {
           console.log(res);
-          this.currentPrediction = [res.data["classLabel0"],res.data["classLabel1"],res.data["classLabel2"],res.data["classLabel3"],res.data["classLabel4"]];
-          this.currentConfidence = [res.data["confidence0"],res.data["confidence1"],res.data["confidence2"],res.data["confidence3"],res.data["confidence4"]];
+          this.currentPrediction = [
+            res.data["classLabel0"],
+            res.data["classLabel1"],
+            res.data["classLabel2"],
+            res.data["classLabel3"],
+            res.data["classLabel4"],
+          ];
+          this.currentConfidence = [
+            res.data["confidence0"],
+            res.data["confidence1"],
+            res.data["confidence2"],
+            res.data["confidence3"],
+            res.data["confidence4"],
+          ];
           this.isLoading = false;
           if (this.selectedRecipe >= 0 && this.checkPrediction()) {
             console.log("Next step");
@@ -101,12 +150,14 @@ export default {
   },
 
   data: () => ({
-    currentPrediction: "",
-    currentConfidence: -1,
+    currentPrediction: [],
+    currentConfidence: [],
     isLoading: false,
     listen: false,
     selectedRecipe: -1,
     currentStep: 1,
+    isCurrentStepDone: false,
+    nextStepThreshold: 3,
     recipes: [
       {
         title: "THIS DISH",
@@ -307,7 +358,8 @@ export default {
             feature: ["nothing"],
             hint: "0,5 Liter Wasser in den Wasserkocher geben und anmachen. Derweil Instant-Nudel Verpackung aufmachen und Nudeln zusammen mit allen anderen Zutaten in eine Schüssel geben.",
             message: "Start.",
-            picture_url: "https://www.carlroth.com/medias/HHY9-01-1000Wx1000H?context=bWFzdGVyfGltYWdlc3wxMzgxOTN8aW1hZ2UvanBlZ3xpbWFnZXMvaDYyL2hlNy84ODI4NDE2Njg4MTU4LmpwZ3w0YWRiNWMxNGIxYjljM2EwZmNiNTVhODYxODE4NDhiOWUwZTQ5OWU4ZjczYmU3NDRjODA2M2Q2MjFmZTBiZDM2"
+            picture_url:
+              "https://www.carlroth.com/medias/HHY9-01-1000Wx1000H?context=bWFzdGVyfGltYWdlc3wxMzgxOTN8aW1hZ2UvanBlZ3xpbWFnZXMvaDYyL2hlNy84ODI4NDE2Njg4MTU4LmpwZ3w0YWRiNWMxNGIxYjljM2EwZmNiNTVhODYxODE4NDhiOWUwZTQ5OWU4ZjczYmU3NDRjODA2M2Q2MjFmZTBiZDM2",
           },
           {
             id: 2,
@@ -315,7 +367,8 @@ export default {
             feature: ["boiling"],
             hint: "Wasser in die Schüssel tun. Schüssel mit irgendetwas abdecken. Denk dran eine Unterlage für die Schüssel zu haben, damit man sie später transportieren kann. Ca.5 Minuten warten.",
             message: "Wecker auf 5 Minuten gestellt.",
-            picture_url: "https://wirin.de/images/kids/texte/2014_35_Kochtopf-4c.jpg"
+            picture_url:
+              "https://wirin.de/images/kids/texte/2014_35_Kochtopf-4c.jpg",
           },
           {
             id: 3,
@@ -323,7 +376,8 @@ export default {
             feature: ["microwave"],
             hint: "Kühlschrank nach etwaigen Resten suchen. Diese auf einen Teller geben und 1-2 Minuten in der Mikrowelle erhitzen.",
             message: "Letzter Schritt.",
-            picture_url: "https://m.media-amazon.com/images/I/81xxOPvz+9L._AC_SX466_.jpg"
+            picture_url:
+              "https://m.media-amazon.com/images/I/81xxOPvz+9L._AC_SX466_.jpg",
           },
         ],
       },
