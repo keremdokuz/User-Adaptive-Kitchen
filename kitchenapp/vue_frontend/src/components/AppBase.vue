@@ -1,15 +1,16 @@
 <template>
   <div>
     <v-app-bar dense dark>
+      <v-icon class="mr-2">{{ icon }}</v-icon>
       <v-toolbar-title>User Adaptive Kitchen</v-toolbar-title>
     </v-app-bar>
 
-    <v-row>
+    <v-row class="mx-1 my-1">
       <v-col cols="8">
         <CookingRecipe v-model="currentStep" :recipe="recipe" />
       </v-col>
       <v-col cols="4">
-        <v-card>
+        <v-card color="#F0F8FF">
           <v-card-title> Prediction Results </v-card-title>
 
           <v-card-text>
@@ -30,9 +31,7 @@
             <v-list-item v-else-if="!this.listen">
               Microphone is inactive at the moment.
             </v-list-item>
-            <v-list-item v-else>
-              Waiting for prediction...
-            </v-list-item>
+            <v-list-item v-else> Waiting for prediction... </v-list-item>
           </v-card-text>
 
           <v-card-actions>
@@ -42,6 +41,7 @@
           <v-card-actions>
             <v-btn v-ripple @click="handleListening" class="ml-4" color="blue">
               {{ listenText }}
+              <v-icon>{{ microphone }}</v-icon>
             </v-btn>
             <v-card-title>
               <v-progress-circular v-if="isLoading" indeterminate />
@@ -58,6 +58,9 @@
 
 <script>
 import axios from "axios";
+import { mdiChefHat } from "@mdi/js";
+import { mdiMicrophone } from "@mdi/js";
+
 import CookingRecipe from "@/components/CookingRecipe.vue";
 import MicrophoneSelection from "@/components/MicrophoneSelection.vue";
 import RecipeList from "@/components/RecipeList.vue";
@@ -79,6 +82,12 @@ export default {
       return this.selectedRecipe >= 0
         ? this.recipes[this.selectedRecipe]
         : undefined;
+    },
+    icon() {
+      return mdiChefHat;
+    },
+    microphone() {
+      return mdiMicrophone;
     },
   },
 

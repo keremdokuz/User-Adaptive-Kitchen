@@ -50,21 +50,27 @@
             </v-btn>
 
             <v-snackbar v-model="snackbar" :timeout="timeout" :multiLine="true">
-            <h1>
-
-              {{ recipe.steps[currentStep - 1].message }}
-
-            </h1>
-              
+              <h1>
+                {{ recipe.steps[currentStep - 1].message }}
+              </h1>
             </v-snackbar>
           </v-stepper-content>
         </v-container>
       </v-stepper>
     </div>
     <div v-else>
-      <v-container>
-        <center style="font-size: 100px">SELECT A RECIPE</center>
-      </v-container>
+      <v-parallax src="https://wallpapercave.com/wp/wp9110111.jpg">
+        <v-row align="center" justify="center">
+          <v-col class="text-center" cols="12">
+            <h1 class="text-h4 font-weight-thin mb-4">
+              Welcome to the User Adaptive Kitchen
+            </h1>
+            <h4 class="subheading">
+              Please select a recipe and let us listen to you!
+            </h4>
+          </v-col>
+        </v-row>
+      </v-parallax>
     </div>
   </div>
 </template>
