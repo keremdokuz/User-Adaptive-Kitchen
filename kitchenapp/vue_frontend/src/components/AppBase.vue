@@ -20,15 +20,18 @@
                 :key="i"
               >
                 <v-list-item-avatar max-height="25" color="blue">
-                  {{ currentConfidence[i] }}
+                  %{{ currentConfidence[i] }}
                 </v-list-item-avatar>
                 <v-list-item-content color="gray">
                   {{ prediction }}
                 </v-list-item-content>
               </v-list-item>
             </v-list>
-            <v-list-item v-else>
+            <v-list-item v-else-if="!this.listen">
               Microphone is inactive at the moment.
+            </v-list-item>
+            <v-list-item v-else>
+              Waiting for prediction...
             </v-list-item>
           </v-card-text>
 
@@ -353,7 +356,7 @@ export default {
           {
             id: 1,
             desc: "Instantnudeln vorbereiten",
-            feature: ["Animal", "White noise"],
+            feature: ["nothing"],
             hint: "0,5 Liter Wasser in den Wasserkocher geben und anmachen. Derweil Instant-Nudel Verpackung aufmachen und Nudeln zusammen mit allen anderen Zutaten in eine Schüssel geben.",
             message: "Start.",
             picture_url:
