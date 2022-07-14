@@ -90,7 +90,6 @@ export default {
       }
     },
     checkPrediction() {
-      console.log(this.nextStepThreshold);
       if (this.nextStepThreshold == 0) {
         this.nextStepThreshold = 3;
         this.isCurrentStepDone = false;
