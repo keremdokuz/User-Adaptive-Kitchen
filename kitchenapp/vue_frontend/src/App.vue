@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main>
+    <v-main :style="{ background: $vuetify.theme.themes['light'].background }">
       <AppBase/>
     </v-main>
   </v-app>

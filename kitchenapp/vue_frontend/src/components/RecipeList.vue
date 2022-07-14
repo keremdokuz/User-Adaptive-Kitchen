@@ -10,11 +10,9 @@
             </v-avatar>
           </v-list-item-icon>
           <v-list-item-title>
-            {{ recipe.title }}
+            <h4>{{ recipe.title }}</h4>
+            <v-subheader>{{ recipe.description }}</v-subheader>
           </v-list-item-title>
-          <v-list-item-action-text>
-            {{ recipe.description }}
-          </v-list-item-action-text>
         </v-list-item>
       </v-list-item-group>
     </v-list>
