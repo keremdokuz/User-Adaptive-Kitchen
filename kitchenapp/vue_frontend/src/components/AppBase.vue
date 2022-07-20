@@ -52,6 +52,11 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-snackbar v-model="confirmation" :timeout=2000 :multiLine="true">
+      <h1>
+        Sound recognized
+      </h1>
+    </v-snackbar>
   </div>
 </template>
 
@@ -100,7 +105,7 @@ export default {
     },
     checkPrediction() {
       if (this.nextStepThreshold == 0) {
-        this.nextStepThreshold = 3;
+        this.nextStepThreshold = 1;
         this.isCurrentStepDone = false;
         console.log("ready for next step");
         return true;
@@ -115,6 +120,7 @@ export default {
       ) {
         this.isCurrentStepDone = true;
         console.log("detected current step");
+        this.confirmation = true;
         return false;
       }
 
@@ -159,6 +165,7 @@ export default {
   },
 
   data: () => ({
+    confirmation: false,
     currentPrediction: [],
     currentConfidence: [],
     isLoading: false,
