@@ -29,7 +29,7 @@ export const recipeLibrary = [
       {
         id: 4,
         desc: "Gemüse anbrutzeln",
-        feature: ["Sizzle", "Frying (food)"],
+        feature: ["Sizzle", "Frying (food)", "Snake", "Breathing", "Spray", "Hiss"],
         hint: "Öl in der Pfanne erhitzen. Paprika und Zwiebeln hinzugeben",
         message: "Herdplatte 2 wird erhitzt.",
       },

@@ -173,7 +173,7 @@ export default {
     selectedRecipe: -1,
     currentStep: 1,
     isCurrentStepDone: false,
-    nextStepThreshold: 3,
+    nextStepThreshold: 1,
     recipes: recipeLibrary,
   }),
 };

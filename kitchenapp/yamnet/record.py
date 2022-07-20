@@ -11,7 +11,7 @@ RATE = 16000
 CHUNK = 1024
 MICROPHONES_DESCRIPTION = []
 FPS = 60.0
-SECONDS = 5
+SECONDS = 3
 MICROPHONE_INDEX = 0
 
 
@@ -27,7 +27,7 @@ class Recorder:
         self.CHUNK = 1024
         self.MICROPHONES_DESCRIPTION = []
         self.FPS = 60.0
-        self.SECONDS = 5
+        self.SECONDS = 3
         self.MICROPHONE_INDEX = 0
 
         self.p = pyaudio.PyAudio()
