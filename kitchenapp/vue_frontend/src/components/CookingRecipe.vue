@@ -15,9 +15,9 @@
               {{ cookingStep.hint }}
             </h3>
             <br />
-            <small>
+            <!--<small>
               {{ features(cookingStep) }}
-            </small>
+            </small>-->
           </v-stepper-step>
 
           <v-stepper-content :step="`${cookingStep.id}`">

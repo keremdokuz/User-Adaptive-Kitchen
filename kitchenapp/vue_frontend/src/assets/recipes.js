@@ -1,7 +1,7 @@
 export const recipeLibrary = [
   {
     title: "SPAGHETTI NAPOLI",
-    description: "Delicious Spaghetti with a twist of a fresh tomato sauce",
+    description: "Leckere Spaghetti mit frischer Tomatensoße",
     pictureUrl:
       "https://www.eat-this.org/wp-content/uploads/2019/01/spaghetti-napoli-pasta-al-pomodoro-3-500x500.jpg",
     steps: [
@@ -14,10 +14,10 @@ export const recipeLibrary = [
       },
       {
         id: 2,
-        desc: "Tomatensoße kreieren",
+        desc: "Tomaten pürieren",
         feature: ["Blender", "Vacuum cleaner", "Mechanical fan"],
         hint: "Tomaten in den Mixer machen und zwei Minuten mixen",
-        message: "Sound recognized",
+        message: "Timer ist für 2 Minuten gestellt.",
       },
       {
         id: 3,
@@ -38,13 +38,13 @@ export const recipeLibrary = [
         desc: "Fertig!",
         feature: ["Boiling"],
         hint: "Du bist fertig. Lass es dir schmecken",
-        message: "Herdplatte 1 und 2 wird aus gemacht",
+        message: "Herdplatte 1 und 2 werden ausgestellt.",
       }
     ],
   },
   {
-    title: "ANOTHER DISH",
-    description: "this is a more delicious dish",
+    title: "Lasagne",
+    description: "Leckere Lasagne",
     pictureUrl:
       "http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcTnVSWrzDPI_ScD4mk9S0Qrq5IhL35b3yW3oDVzqOIBPn2MJ4cl6CVGXONty33ObJ2nYEbMvEZttNp345sVZzw",
     steps: [
