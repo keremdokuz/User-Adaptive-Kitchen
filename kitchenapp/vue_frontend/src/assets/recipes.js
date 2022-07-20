@@ -1,14 +1,14 @@
 export const recipeLibrary = [
   {
-    title: "THIS DISH",
-    description: "this is a delicious dish",
+    title: "SPAGHETTI NAPOLI",
+    description: "Delicious Spaghetti with a twist of a fresh tomato sauce",
     pictureUrl:
-      "http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcSBLXkuUROF4JIrBMaxOf0s2s5rqkl_2_w4bTFvgGfaB6CvZ4WzNM5JHy7d9gvmghA2s7i9APQCfhB66Q6vSdU",
+      "https://www.eat-this.org/wp-content/uploads/2019/01/spaghetti-napoli-pasta-al-pomodoro-3-500x500.jpg",
     steps: [
       {
         id: 1,
         desc: "Gemüse vorbereiten",
-        feature: ["Chop", "Chopping", "Knock", "Whip", "Whack, thwack"],
+        feature: ["Chop", "Chopping", "Chopping (food)", "Knock", "Whip", "Whack, thwack", "Slap, smack", "Clapping"],
         hint: "Zwiebel schälen, und inkleine Stücke schneiden. 2 Paprikas und 2 Tomaten klein schneiden.",
         message: "",
       },

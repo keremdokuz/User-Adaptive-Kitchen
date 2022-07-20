@@ -130,7 +130,7 @@ export default {
       axios
         .get("http://127.0.0.1:8000/predict")
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           this.currentPrediction = [
             res.data["classLabel0"],
             res.data["classLabel1"],
