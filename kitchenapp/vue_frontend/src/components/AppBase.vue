@@ -57,6 +57,11 @@
         Sound recognized
       </h1>
     </v-snackbar>
+    <v-snackbar v-model="snack" :timeout=2000 :multiLine="true">
+      <h1>
+        {{snackMessage}}
+      </h1>
+    </v-snackbar>
   </div>
 </template>
 
@@ -155,6 +160,8 @@ export default {
           if (this.selectedRecipe >= 0 && this.checkPrediction()) {
             console.log("Next step");
             this.currentStep += 1;
+            this.snackMessage = this.recipes[this.selectedRecipe].steps[this.currentStep - 1].message;
+            this.snack = true;
           }
           if (this.listen) {
             this.getPrediction();
@@ -165,6 +172,8 @@ export default {
   },
 
   data: () => ({
+    snack: false,
+    snackMessage: "Hello World",
     confirmation: false,
     currentPrediction: [],
     currentConfidence: [],
