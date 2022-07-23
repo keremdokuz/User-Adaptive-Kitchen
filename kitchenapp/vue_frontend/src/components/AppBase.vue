@@ -3,11 +3,13 @@
     <v-app-bar dense dark>
       <v-icon class="mr-4">{{ icon }}</v-icon>
       <v-toolbar-title>User Adaptive Kitchen</v-toolbar-title>
+      <v-toolbar-title class="ml-2" id="demo" v-if="show_timer"></v-toolbar-title>
+
     </v-app-bar>
 
     <v-row class="mx-1 my-1">
       <v-col cols="8">
-        <CookingRecipe v-model="currentStep" :recipe="recipe" />
+        <CookingRecipe v-model="currentStep" :recipe="recipe" @show-timer='(bool) => show_timer = bool'/>
       </v-col>
       <v-col cols="4">
         <v-card color="#F0F8FF">
@@ -126,6 +128,13 @@ export default {
         this.isCurrentStepDone = true;
         console.log("detected current step");
         this.confirmation = true;
+        if (this.first_recognised) {
+          var sec = this.recipes[this.selectedRecipe].steps[this.currentStep - 1].timer_seconds;
+          if (sec) {
+            this.timer(sec);
+            }
+          }
+        this.first_recognised = false;    
         return false;
       }
 
@@ -159,18 +168,51 @@ export default {
           this.isLoading = false;
           if (this.selectedRecipe >= 0 && this.checkPrediction()) {
             console.log("Next step");
+            this.first_recognised = true;
             this.currentStep += 1;
             this.snackMessage = this.recipes[this.selectedRecipe].steps[this.currentStep - 1].message;
             this.snack = true;
-          }
+          
+        }
           if (this.listen) {
             this.getPrediction();
           }
         })
         .catch((err) => console.log(err));
     },
-  },
 
+  timer(seconds){
+    this.show_timer = true;
+    // Set the date we're counting down to
+    var date = new Date();
+    date.setSeconds(date.getSeconds() + seconds);
+    var countDownDate = new Date(date).getTime();
+    
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+
+      // Get today's date and time
+      var now = new Date().getTime();
+
+      // Find the distance between now and the count down date
+      var distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the result in the element with id="demo"
+      document.getElementById("demo").innerHTML = minutes + "m " + seconds + "s ";
+
+      // If the count down is finished, write some text
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("demo").innerHTML = "Zeit abgelaufen!";
+        this.show_timer = false;
+      }
+    }, 1000);
+  }
+  },
   data: () => ({
     snack: false,
     snackMessage: "Hello World",
@@ -184,6 +226,8 @@ export default {
     isCurrentStepDone: false,
     nextStepThreshold: 1,
     recipes: recipeLibrary,
+    show_timer: false,
+    first_recognised: true,
   }),
 };
 </script>
