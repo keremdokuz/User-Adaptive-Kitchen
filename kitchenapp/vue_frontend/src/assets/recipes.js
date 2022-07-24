@@ -15,7 +15,7 @@ export const recipeLibrary = [
       {
         id: 2,
         desc: "Tomaten pürieren",
-        feature: ["Blender", "Vacuum cleaner", "Mechanical fan", "Speech"],
+        feature: ["Blender", "Vacuum cleaner", "Mechanical fan"],
         hint: "Tomaten in den Mixer geben und eine Minuten mixen",
         message: "Timer ist für 1 Minuten gestellt.",
         timer_seconds: 60,
@@ -23,7 +23,7 @@ export const recipeLibrary = [
       {
         id: 3,
         desc: "Vorbereitung für die Nudeln",
-        feature: ["Water", "Water tap, faucet", "Speech"],
+        feature: ["Water", "Water tap, faucet"],
         hint: "Wasser in einen Topf füllen und erhitzen. Salz hinzugeben. Nudeln hinzugeben sobald das Wasser kocht.",
         message: "Herdplatte 1 wird erhitzt. Timer für 10 Minuten erstellt",
         timer_seconds: 600,
