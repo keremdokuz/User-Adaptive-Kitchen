@@ -15,7 +15,7 @@ export const recipeLibrary = [
       {
         id: 2,
         desc: "Tomaten pürieren",
-        feature: ["Blender", "Vacuum cleaner", "Mechanical fan"],
+        feature: ["Blender", "Vacuum cleaner", "Mechanical fan", "Toothbrush", "Tools", "Electric toothbrush", "Power tool", "Drill"],
         hint: "Tomaten in den Mixer geben und eine Minuten mixen",
         message: "Timer ist für 1 Minuten gestellt.",
         timer_seconds: 60,
@@ -23,7 +23,7 @@ export const recipeLibrary = [
       {
         id: 3,
         desc: "Vorbereitung für die Nudeln",
-        feature: ["Water", "Water tap, faucet"],
+        feature: ["Water", "Water tap, faucet", "Sink (filling or washing)"],
         hint: "Wasser in einen Topf füllen und erhitzen. Salz hinzugeben. Nudeln hinzugeben sobald das Wasser kocht.",
         message: "Herdplatte 1 wird erhitzt. Timer für 10 Minuten erstellt",
         timer_seconds: 600,
@@ -80,78 +80,7 @@ export const recipeLibrary = [
       },
     ],
   },
-  {
-    title: "Rinderbraten mit Semmelknödeln und Preiselbeer-Birnen",
-    description: "Nur für erfahrene Koche geeignet",
-    pictureUrl:
-      "https://c.rewe-static.de/34582100/2/34582100.png?impolicy=rds&im=Resize,height=600;Crop,width=730,height=600,gravity=Center",
-    steps: [
-      {
-        id: 1,
-        desc: "Backofen vorheizen",
-        feature: ["nothing"],
-        hint: "200°C, Ober-/Unterhitze",
-        message: "Backofen wird auf 200°C gestellt.",
-      },
-      {
-        id: 2,
-        desc: "Gemüse schneiden",
-        feature: ["chopping"],
-        hint: "Karotten waschen und halbieren. Zwiebeln schälen und zusammen mit der Knoblauchknolle halbieren.",
-        message: "Herdplatte wird erhitzt.",
-      },
-      {
-        id: 3,
-        desc: "Fleisch und Gemüse anbraten",
-        feature: ["sizzling"],
-        hint: "Schmorfleisch mit Salz und Pfeffer würzen und mit Weizenmehl bestäuben. In einer heißen Pfanne mit Öl kräftig anbraten. Schmorfleisch in einen Bräter setzen. Gemüse ebenfalls kurz in der Pfanne anbraten und zum Fleisch geben. Tomatenmark mit dem Rinderfond in die Pfanne geben, aufkochen lassen und über das Schmorfleisch gießen. Rosmarin und Lorbeerblätter zugeben.",
-        message: "Nächster Schritt",
-      },
-      {
-        id: 4,
-        desc: "Im Ofen backen",
-        feature: ["nothing"],
-        hint: "Den Bräter abgedeckt für etwa 3 ½ Stunden in den Backofen schieben. Nach etwa 1 ½ Stunden Schmorzeit Karotten und Zwiebeln herausnehmen und beiseitestellen.",
-        message:
-          "Wecker für 1,5 Studen gesetzt. Wecker für 3,5 Stunden gesetzt.",
-      },
-      {
-        id: 5,
-        desc: "Gemüse schneiden",
-        feature: ["chopping"],
-        hint: "Karotten waschen und halbieren. Zwiebeln schälen und zusammen mit der Knoblauchknolle halbieren.",
-        message: "Herdplatte wird erhitzt",
-      },
-      {
-        id: 6,
-        desc: "Brötchenwürfel machen",
-        feature: ["sizzling"],
-        hint: "Brötchen würfeln. In einer Pfanne oder auf einem Blech im Ofen rösten lassen. Brötchenwürfel in eine Schüssel geben und Eier, gehackte Petersilie und lauwarme Milch zugeben. Vermengen und mit Salz, Pfeffer und Muskat abschmecken. Etwa 20 Minuten ziehen lassen.",
-        message: "Wecker für 20 Minuten gesetzt.",
-      },
-      {
-        id: 7,
-        desc: "Knödel machen",
-        feature: ["boiling"],
-        hint: "Gleich große Knödel formen und in etwas Weizenmehl wenden. Im leicht siedenden Wasser abkochen, bis sie oben schwimmen.",
-        message: "Nächster Schritt.",
-      },
-      {
-        id: 8,
-        desc: "Birnen vorbereiten",
-        feature: ["boiling"],
-        hint: "Birnen halbieren und entkernen. In einem Topf mit Apfelsaft und Honig einkochen lassen, bis der komplette Saft verkocht ist und die Birnen karamellisiert sind.",
-        message: "Nächster Schritt.",
-      },
-      {
-        id: 9,
-        desc: "Fertigstellen",
-        feature: ["alarm"],
-        hint: "Rinderbraten aus dem Bräter nehmen, in Scheiben schneiden und warm stellen. Sauce aufkochen und mit der angerührten Stärke binden. Gemüse in der Sauce kurz erwärmen und mit den Knödeln zum Braten anrichten. Birnen mit den Preiselbeeren füllen. Das aufgeschnittene Fleisch mit der heißen Sauce übergießen und alles servieren.",
-        message: "Letzter Schritt.",
-      },
-    ],
-  },
+
   {
     title: "Cupcakes",
     description: "Perfekt für den Geburtstag deiner Tochter",
