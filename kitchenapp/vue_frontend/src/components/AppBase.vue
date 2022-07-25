@@ -3,13 +3,20 @@
     <v-app-bar dense dark>
       <v-icon class="mr-4">{{ icon }}</v-icon>
       <v-toolbar-title>User Adaptive Kitchen</v-toolbar-title>
-      <v-toolbar-title class="ml-2" id="demo" v-if="show_timer"></v-toolbar-title>
-
+      <v-list-item-avatar
+        class="ml-2"
+        id="demo"
+        v-if="show_timer"
+      ></v-list-item-avatar>
     </v-app-bar>
 
     <v-row class="mx-1 my-1">
       <v-col cols="8">
-        <CookingRecipe v-model="currentStep" :recipe="recipe" @show-timer='(bool) => show_timer = bool'/>
+        <CookingRecipe
+          v-model="currentStep"
+          :recipe="recipe"
+          @show-timer="(bool) => (show_timer = bool)"
+        />
       </v-col>
       <v-col cols="4">
         <v-card color="#F0F8FF">
@@ -54,14 +61,12 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-snackbar v-model="confirmation" :timeout=2000 :multiLine="true">
-      <h1>
-        Sound recognized
-      </h1>
+    <v-snackbar v-model="confirmation" :timeout="2000" :multiLine="true">
+      <h1>Sound recognized</h1>
     </v-snackbar>
-    <v-snackbar v-model="snack" :timeout=2000 :multiLine="true">
+    <v-snackbar v-model="snack" :timeout="2000" :multiLine="true">
       <h1>
-        {{snackMessage}}
+        {{ snackMessage }}
       </h1>
     </v-snackbar>
   </div>
@@ -104,20 +109,21 @@ export default {
   },
 
   methods: {
+    /* 
+      Starts recording
+    */
     handleListening() {
       this.listen = !this.listen;
       if (this.listen) {
         this.getPrediction();
       }
     },
+    /*
+      Sets the conditions for the incoming prediction.
+      Checks if the current step is recognized and handles the countdown.
+    */
     checkPrediction() {
-      if (this.nextStepThreshold == 0) {
-        this.nextStepThreshold = 1;
-        this.isCurrentStepDone = false;
-        console.log("ready for next step");
-        return true;
-      }
-
+      // checks if the prediction matches with the current step
       if (
         this.recipes[this.selectedRecipe].steps[
           this.currentStep - 1
@@ -129,15 +135,26 @@ export default {
         console.log("detected current step");
         this.confirmation = true;
         if (this.first_recognised) {
-          var sec = this.recipes[this.selectedRecipe].steps[this.currentStep - 1].timer_seconds;
+          var sec =
+            this.recipes[this.selectedRecipe].steps[this.currentStep - 1]
+              .timer_seconds;
           if (sec) {
             this.timer(sec);
-            }
           }
-        this.first_recognised = false;    
+        }
+        this.first_recognised = false;
         return false;
       }
 
+      // moves on to the next step if coundown is finished
+      if (this.nextStepThreshold == 0) {
+        this.nextStepThreshold = 1;
+        this.isCurrentStepDone = false;
+        console.log("ready for next step");
+        return true;
+      }
+
+      // triggers the countdown
       if (this.isCurrentStepDone) {
         this.nextStepThreshold--;
         console.log("countdown");
@@ -145,6 +162,11 @@ export default {
 
       return false;
     },
+
+    /*
+      Sends a prediction request to the backend and moves on to the next step
+      if the conditions are satisfied.
+    */
     async getPrediction() {
       this.isLoading = true;
       axios
@@ -170,10 +192,12 @@ export default {
             console.log("Next step");
             this.first_recognised = true;
             this.currentStep += 1;
-            this.snackMessage = this.recipes[this.selectedRecipe].steps[this.currentStep - 1].message;
+            this.snackMessage =
+              this.recipes[this.selectedRecipe].steps[
+                this.currentStep - 1
+              ].message;
             this.snack = true;
-          
-        }
+          }
           if (this.listen) {
             this.getPrediction();
           }
@@ -181,37 +205,40 @@ export default {
         .catch((err) => console.log(err));
     },
 
-  timer(seconds){
-    this.show_timer = true;
-    // Set the date we're counting down to
-    var date = new Date();
-    date.setSeconds(date.getSeconds() + seconds);
-    var countDownDate = new Date(date).getTime();
-    
-    // Update the count down every 1 second
-    var x = setInterval(function() {
+    /*
+      Creates a timer counting down from given seconds, displayed in the app bar.
+    */
+    timer(seconds) {
+      this.show_timer = true;
+      // Set the date we're counting down to
+      var date = new Date();
+      date.setSeconds(date.getSeconds() + seconds);
+      var countDownDate = new Date(date).getTime();
 
-      // Get today's date and time
-      var now = new Date().getTime();
+      // Update the count down every 1 second
+      this.timerId = setInterval(function () {
+        // Get today's date and time
+        var now = new Date().getTime();
 
-      // Find the distance between now and the count down date
-      var distance = countDownDate - now;
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
 
-      // Time calculations for days, hours, minutes and seconds
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // Time calculations for days, hours, minutes and seconds
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      // Display the result in the element with id="demo"
-      document.getElementById("demo").innerHTML = minutes + "m " + seconds + "s ";
+        // Display the result in the element with id="demo"
+        document.getElementById("demo").innerHTML =
+          minutes + "m " + seconds + "s ";
 
-      // If the count down is finished, write some text
-      if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("demo").innerHTML = "Zeit abgelaufen!";
-        this.show_timer = false;
-      }
-    }, 1000);
-  }
+        // If the count down is finished, write some text
+        if (distance < 0) {
+          clearInterval(this.timerId);
+          document.getElementById("demo").innerHTML = "Zeit abgelaufen!";
+          this.show_timer = false;
+        }
+      }, 1000);
+    },
   },
   data: () => ({
     snack: false,
@@ -228,7 +255,17 @@ export default {
     recipes: recipeLibrary,
     show_timer: false,
     first_recognised: true,
+    timerId: 0,
   }),
+
+  watch: {
+    currentStep() {
+      if (this.timerId) {
+        clearInterval(this.timerId);
+        this.show_timer = false;
+      }
+    },
+  },
 };
 </script>
 

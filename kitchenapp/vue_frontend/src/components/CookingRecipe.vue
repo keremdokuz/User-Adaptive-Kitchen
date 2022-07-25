@@ -6,8 +6,7 @@
           <v-stepper-step
             :complete="currentStep > cookingStep.id"
             :step="`${cookingStep.id}`"
-        >            
-
+          >
             <h2>
               {{ cookingStep.desc }}
             </h2>
@@ -19,7 +18,6 @@
             <!--<small>
               {{ features(cookingStep) }}
             </small>-->
-
           </v-stepper-step>
 
           <v-stepper-content :step="`${cookingStep.id}`">
@@ -77,8 +75,6 @@
 </template>
 
 <script>
-
-
 export default {
   props: {
     recipe: Object,

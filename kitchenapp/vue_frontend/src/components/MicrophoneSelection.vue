@@ -17,9 +17,7 @@
                 {{ device.index }}
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title
-                  v-text="device.description"
-                />
+                <v-list-item-title v-text="device.description" />
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
@@ -50,6 +48,9 @@ export default {
     },
   },
   watch: {
+    /*
+      Gets the available microphones from the backend
+    */
     dialog(newValue) {
       if (newValue) {
         this.isLoading = true;
@@ -63,6 +64,9 @@ export default {
           .catch((err) => console.log(err));
       }
     },
+    /*
+      Sets the selected microphone in the backend
+    */
     selectedItem(newValue) {
       if (newValue >= 0) {
         this.isLoading = true;
