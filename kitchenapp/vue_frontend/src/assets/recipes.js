@@ -8,17 +8,39 @@ export const recipeLibrary = [
       {
         id: 1,
         desc: "Gemüse vorbereiten",
-        feature: ["Chop", "Chopping", "Chopping (food)", "Knock", "Whip", "Whack, thwack", "Slap, smack", "Clapping"],
+        feature: [
+          "Chop",
+          "Chopping",
+          "Chopping (food)",
+          "Knock",
+          "Whip",
+          "Whack, thwack",
+          "Slap, smack",
+          "Clapping",
+        ],
         hint: "Zwiebel schälen und in kleine Stücke schneiden. 1 Paprika und 2 Tomaten klein schneiden.",
         message: "",
+        picture_url:
+          "https://www.verywellhealth.com/thmb/iuD_024yuAXTEiUcYIqNdpGCGsY=/2000x1333/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-931333504-e07e0cc104984b898d89dee41538a217.jpg",
       },
       {
         id: 2,
         desc: "Tomaten pürieren",
-        feature: ["Blender", "Vacuum cleaner", "Mechanical fan", "Toothbrush", "Tools", "Electric toothbrush", "Power tool", "Drill"],
+        feature: [
+          "Blender",
+          "Vacuum cleaner",
+          "Mechanical fan",
+          "Toothbrush",
+          "Tools",
+          "Electric toothbrush",
+          "Power tool",
+          "Drill",
+        ],
         hint: "Tomaten in den Mixer geben und eine Minuten mixen",
         message: "Timer ist für 1 Minuten gestellt.",
         timer_seconds: 60,
+        picture_url:
+          "https://media01.stockfood.com/largepreviews/MzQ5Nzg2NjQw/11283440-Tomato-sauce-being-pureed-with-a-hand-mixer.jpg",
       },
       {
         id: 3,
@@ -27,13 +49,24 @@ export const recipeLibrary = [
         hint: "Wasser in einen Topf füllen und erhitzen. Salz hinzugeben. Nudeln hinzugeben sobald das Wasser kocht.",
         message: "Herdplatte 1 wird erhitzt. Timer für 10 Minuten erstellt",
         timer_seconds: 600,
+        picture_url:
+          "https://www.wikihow.com/images/thumb/5/5d/Cook-a-Noodles-and-Egg-Quick-Meal-Step-2-Version-3.jpg/v4-460px-Cook-a-Noodles-and-Egg-Quick-Meal-Step-2-Version-3.jpg.webp",
       },
       {
         id: 4,
         desc: "Gemüse anbrutzeln",
-        feature: ["Sizzle", "Frying (food)", "Snake", "Breathing", "Spray", "Hiss"],
+        feature: [
+          "Sizzle",
+          "Frying (food)",
+          "Snake",
+          "Breathing",
+          "Spray",
+          "Hiss",
+        ],
         hint: "Öl in der Pfanne erhitzen. Paprika und Zwiebeln hinzugeben",
         message: "Herdplatte 2 wird erhitzt.",
+        picture_url:
+          "https://www.wikihow.com/images_en/thumb/8/8f/Cook-Peppers-Step-12-Version-4.jpg/550px-nowatermark-Cook-Peppers-Step-12-Version-4.jpg",
       },
       {
         id: 5,
@@ -41,7 +74,9 @@ export const recipeLibrary = [
         feature: ["Boiling"],
         hint: "Du bist fertig. Lass es dir schmecken",
         message: "Herdplatte 1 und 2 werden ausgestellt.",
-      }
+        picture_url:
+          "https://ais.kochbar.de/kbrezept/435538_1137799/1200x1200/spaghetti-napoli-rezept-bild-nr-2.jpg",
+      },
     ],
   },
   {

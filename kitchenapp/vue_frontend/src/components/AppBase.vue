@@ -264,12 +264,19 @@ export default {
         clearInterval(this.timerId);
         this.show_timer = false;
       }
+      this.first_recognised = true;
+      this.nextStepThreshold = 1;
+      this.isCurrentStepDone = false;
+      this.confirmation = false;
     },
   },
 };
 </script>
 
 <style scoped>
+/* 
+  Microphone icon animation
+*/
 .elem {
   margin-left: 6;
   margin-right: 4;
