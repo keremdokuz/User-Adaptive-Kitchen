@@ -12,8 +12,8 @@ from record import Recorder
 file_name = "output.wav"
 recorder = Recorder(file_name)
 
-def vue_test(request):
-    return render(request, 'frontend/test.html')
+def vue_frontend(request):
+    return render(request, 'frontend/index.html')
 
 
 def index(request, *args, **kwargs):
