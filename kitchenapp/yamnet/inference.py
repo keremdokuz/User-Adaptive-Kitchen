@@ -23,15 +23,16 @@ import soundfile as sf
 import params as yamnet_params
 import yamnet as yamnet_model
 
-
+#Main Yamnet Method, returns top 5 predictions of the next few seconds
 def start(recorder):
     params = yamnet_params.Params()
     yamnet = yamnet_model.yamnet_frames_model(params)
     yamnet.load_weights('yamnet/model/yamnet.h5')
     yamnet_classes = yamnet_model.class_names('yamnet/model/yamnet_class_map.csv')
 
+    #Record a few seconds and save them in a wav file
     recorder.record()
-    # time.sleep(5.5) -> maybe not necessary?
+
 
     print('Predicting...')
     # Decode the WAV file.
